@@ -7,7 +7,7 @@ import { Enroll } from "./pages/Enroll";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
         <Route exact path="/enroll" component={Enroll}></Route>
         <Route exact path="/" component={Home}></Route>
