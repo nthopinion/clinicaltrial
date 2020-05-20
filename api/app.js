@@ -1,19 +1,15 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const enrollmentDAO = require("./models/enrollmentContext");
+
 app.use(cors());
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+enrollmentDAO.init(); // initialize cosmosdb database/containers
 
-app.get("/users", (req, res) => {
-  res.send([
-    { id: 1, name: "John" },
-    { id: 2, name: "Susan" },
-    { id: 3, name: "Mike" },
-    { id: 4, name: "Mason" },
-  ]);
+app.post("/api/saveEnrollment", (req, res, next) => {
+  enrollmentDAO.saveEnrollment(req, res).catch(next);
 });
 
 module.exports = app;

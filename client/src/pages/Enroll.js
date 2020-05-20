@@ -4,6 +4,7 @@ import { EnrollStep1 } from "./../components/EnrollStep1";
 import { EnrollStep2 } from "./../components/EnrollStep2";
 import { EnrollProvider } from "../providers/enrollProvider";
 import moment from "moment";
+import config from "../config";
 
 export const Enroll = () => {
   const [index, setIndex] = useState(() => 1);
@@ -46,8 +47,22 @@ export const Enroll = () => {
     onPrevClick: prev,
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await saveData();
+  };
+
+  const saveData = async () => {
+    const response = await fetch(`${config.domainURL}/api/saveEnrollment`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log(result);
   };
 
   return (
