@@ -47,6 +47,21 @@ Note: For ease-of-use to demonstrate the API has been attached to `window`, howe
 it's better for the application to avoid this and create a global singleton for re-use
 across the application.
 
+Here's a brief example of saving a daily visit, that uses an embedded `lab-result` schema
+for the `hla-b` property:
+
+```
+let dvDatastore = await window.api.openDatastore("dailyVisit");
+await dvDatastore.save({
+    "dateOfVisit": "2020-05-31T00:29:45.528Z",
+    "hla-b": {
+        "value": 12,
+        "units": "ml",
+        "datetime": "2020-05-31T00:29:45.528Z"
+    }
+})
+```
+
 ## Schemas
 
 I have created the starting point of two schemas in the `/public/schemas` directory.
@@ -64,3 +79,7 @@ console.log(enrolmentSpecification);
 ```
 
 This will provide an object containing all the fields (properties), required fields etc.
+
+JSON Schema supports embedded schemas. I have implemented this for the `dailyVisit` schema
+as an example. It references a `lab-result` schema for the `hla-b` property. This approach
+can be used for most of the lab results for easier maintainability.

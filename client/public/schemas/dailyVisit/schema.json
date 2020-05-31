@@ -12,7 +12,7 @@
         {
             "properties": {
                 "dateOfVisit": {
-                    "title": "Date of vsiit",
+                    "title": "Date of visit",
                     "description": "Date the patient was visited",
                     "type": "string",
                     "format": "date-time"
@@ -34,7 +34,7 @@
                 }
             },
             "required": [
-                "dateEnrolment", "dateConsent", "age"
+                "dateOfVisit"
             ]
         }
     ]
