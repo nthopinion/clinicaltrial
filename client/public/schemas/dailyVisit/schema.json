@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://clinicaltrial.nthopinion.com/dailyVisit/schema.json",
+    "title": "Daily Visit",
+    "titlePlural": "Daily Visits",
+    "description": "A daily visit of a patient participating in the clinical trial",
+    "database": {
+      "name": "health_clinical_trial_daily_visit"
+    },
+    "allOf": [
+        {"$ref": "https://schemas.verida.io/base/schema.json"},
+        {
+            "properties": {
+                "dateOfVisit": {
+                    "title": "Date of vsiit",
+                    "description": "Date the patient was visited",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "medicationPrescription": {
+                    "title": "Medication - Prescription",
+                    "description": "",
+                    "type": "string",
+                    "enum": ["home", "home med continued", "home med stopped"]
+                },
+                "fitnessTrackerOptIn": {
+                    "title": "Fitness tracker opt-in",
+                    "description": "",
+                    "type": "boolean"
+                },
+                "hla-b": {
+                    "title": "HLAB-B",
+                    "$ref": "https://clinicaltrial.nthopinion.com/lab-result/schema.json"
+                }
+            },
+            "required": [
+                "dateEnrolment", "dateConsent", "age"
+            ]
+        }
+    ]
+  }
