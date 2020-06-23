@@ -25,7 +25,7 @@ VeridaApp.setConfig({
   servers: {
     testnet: {
       schemaPaths: {
-        "https://clinicaltrial.nthopinion.com/": "http://localhost:3000/schemas/"
+        "https://clinicaltrial.nthopinion.com/": REACT_APP_DOMAIN_URl + "/schemas/"
       }
     }
   }
