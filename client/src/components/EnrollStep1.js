@@ -4,9 +4,10 @@ import "../Datetime.css";
 import Datetime from "react-datetime";
 import PropTypes from "prop-types";
 import { EnrollContext } from "./../providers/enrollProvider";
+import moment from "moment";
 
 export const EnrollStep1 = () => {
-  const { onHandleInput, onNextClick } = useContext(EnrollContext);
+  const { onHandleInput, onNextClick, data } = useContext(EnrollContext);
 
   return (
     <>
@@ -17,7 +18,8 @@ export const EnrollStep1 = () => {
           <Datetime
             placeholder="Enrollment Date"
             closeOnSelect={true}
-            onChange={(e) => onHandleInput(e, "date", "enrollmentDate")}
+            value={data ? moment(data.enrollmentDate) : null}
+            onBlur={(e) => onHandleInput(e, "date", "enrollmentDate")}
             inputProps={{ placeholder: "Enrollment Date" }}
           ></Datetime>
         </Form.Group>
@@ -27,7 +29,8 @@ export const EnrollStep1 = () => {
           <Datetime
             placeholder="Consent Date"
             closeOnSelect={true}
-            onChange={(e) => onHandleInput(e, "date", "consentDate")}
+            value={data ? moment(data.consentDate) : null}
+            onBlur={(e) => onHandleInput(e, "date", "consentDate")}
             inputProps={{ placeholder: "Consent Date" }}
           ></Datetime>
         </Form.Group>
@@ -36,7 +39,8 @@ export const EnrollStep1 = () => {
           <Datetime
             placeholder="Admission Date"
             closeOnSelect={true}
-            onChange={(e) => onHandleInput(e, "date", "admissionDate")}
+            value={data ? moment(data.admissionDate) : null}
+            onBlur={(e) => onHandleInput(e, "date", "admissionDate")}
             inputProps={{ placeholder: "Admission Date" }}
           ></Datetime>
         </Form.Group>
@@ -46,7 +50,8 @@ export const EnrollStep1 = () => {
           <Datetime
             placeholder="Visit Date"
             closeOnSelect={true}
-            onChange={(e) => onHandleInput(e, "date", "visitDate")}
+            value={data ? moment(data.visitDate) : null}
+            onBlur={(e) => onHandleInput(e, "date", "visitDate")}
             inputProps={{ placeholder: "Visit Date" }}
           ></Datetime>
         </Form.Group>
@@ -58,7 +63,8 @@ export const EnrollStep1 = () => {
           <Datetime
             placeholder="Discharge Date"
             closeOnSelect={true}
-            onChange={(e) => onHandleInput(e, "date", "dischargeDate")}
+            value={data ? moment(data.dischargeDate) : null}
+            onBlur={(e) => onHandleInput(e, "date", "dischargeDate")}
             inputProps={{ placeholder: "Discharge Date" }}
           ></Datetime>
         </Form.Group>
@@ -75,6 +81,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Weight</Form.Label>
           <Form.Control
             type="number"
+            value={data?.weight}
             onChange={onHandleInput}
             placeholder="Weight"
           />
@@ -83,6 +90,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Height (in cm)</Form.Label>
           <Form.Control
             type="number"
+            value={data?.height}
             onChange={onHandleInput}
             placeholder="Height"
           />
@@ -90,7 +98,11 @@ export const EnrollStep1 = () => {
 
         <Form.Group as={Col} controlId="gender">
           <Form.Label>Gender</Form.Label>
-          <Form.Control as="select" onChange={onHandleInput}>
+          <Form.Control
+            as="select"
+            onChange={onHandleInput}
+            value={data?.gender}
+          >
             <option>Male</option>
             <option>Female</option>
           </Form.Control>
@@ -101,6 +113,7 @@ export const EnrollStep1 = () => {
           <Form.Check
             className="mt-2"
             type="checkbox"
+            checked={data?.genderReassigned === true}
             onChange={(e) => onHandleInput(e, "check")}
             label="Gender Reassigned?"
           />
@@ -112,6 +125,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
+            value={data?.medPrescName || ""}
             onChange={onHandleInput}
             placeholder="Name"
           />
@@ -120,6 +134,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Dose</Form.Label>
           <Form.Control
             type="number"
+            value={data?.medPrescDose}
             onChange={onHandleInput}
             placeholder="Dose"
           />
@@ -128,6 +143,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Units</Form.Label>
           <Form.Control
             type="text"
+            value={data?.medPrescUnits}
             onChange={onHandleInput}
             placeholder="Units"
           />
@@ -138,6 +154,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Frequency</Form.Label>
           <Form.Control
             type="text"
+            value={data?.medPrescFrequency || ""}
             onChange={onHandleInput}
             placeholder="Frequency"
           />
@@ -146,15 +163,30 @@ export const EnrollStep1 = () => {
           <Form.Label>Prescriber</Form.Label>
           <Form.Control
             type="text"
+            value={data?.medPrescPrescriber || ""}
             onChange={onHandleInput}
             placeholder="Prescriber"
           />
         </Form.Group>
         <Form.Group as={Col} controlId="medPrescOptions">
           <Form.Label> </Form.Label>
-          <Form.Control as="select" className="mt-2" onChange={onHandleInput}>
-            <option>Home</option>
-            <option>Home Med Continued</option>
+          <Form.Control
+            as="select"
+            className="mt-2"
+            value={data?.medPrescOptions}
+            onChange={onHandleInput}
+          >
+            <option value="home">Home</option>
+            <option value="hmc">Home Med Continued</option>
+            <option value="hms">Home Med Stopped</option>
+            <option value="hmch">Home Med Change</option>
+            <option value="nms">New Med Start</option>
+            <option value="ms">Med Stop</option>
+            <option value="mch">Med Change</option>
+            <option value="dc">Discharge Continue</option>
+            <option value="dmn">Discharge Med New</option>
+            <option value="dmch">Discharge Med Change</option>
+            <option value="dms">Discharge Med Stop</option>
           </Form.Control>
         </Form.Group>
       </Form.Row>
@@ -164,6 +196,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
+            value={data?.medOTCName || ""}
             onChange={onHandleInput}
             placeholder="Name"
           />
@@ -172,6 +205,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Dose</Form.Label>
           <Form.Control
             type="number"
+            value={data?.medOTCDose}
             onChange={onHandleInput}
             placeholder="Dose"
           />
@@ -180,6 +214,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Units</Form.Label>
           <Form.Control
             type="text"
+            value={data?.medOTCUnits}
             onChange={onHandleInput}
             placeholder="Units"
           />
@@ -190,6 +225,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Frequency</Form.Label>
           <Form.Control
             type="text"
+            value={data?.medOTCFrequency}
             onChange={onHandleInput}
             placeholder="Frequency"
           />
@@ -198,13 +234,19 @@ export const EnrollStep1 = () => {
           <Form.Label>Prescriber</Form.Label>
           <Form.Control
             type="text"
+            value={data?.medOTCPrescriber}
             onChange={onHandleInput}
             placeholder="Prescriber"
           />
         </Form.Group>
         <Form.Group as={Col} controlId="medOTCOptions">
           <Form.Label> </Form.Label>
-          <Form.Control as="select" className="mt-2" onChange={onHandleInput}>
+          <Form.Control
+            as="select"
+            className="mt-2"
+            value={data?.medOTCOptions}
+            onChange={onHandleInput}
+          >
             <option>Home</option>
             <option>Home Med Continued</option>
           </Form.Control>
@@ -216,6 +258,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Country</Form.Label>
           <Form.Control
             type="text"
+            value={data?.country || ""}
             onChange={onHandleInput}
             placeholder="Country"
           />
@@ -225,6 +268,7 @@ export const EnrollStep1 = () => {
           <Form.Label>State/Territory/Providence</Form.Label>
           <Form.Control
             type="text"
+            value={data?.state || ""}
             onChange={onHandleInput}
             placeholder="State"
           />
@@ -232,7 +276,8 @@ export const EnrollStep1 = () => {
         <Form.Group as={Col} controlId="zipCode">
           <Form.Label>Zip Code</Form.Label>
           <Form.Control
-            type="text"
+            type="number"
+            value={data?.zipCode || 0}
             onChange={onHandleInput}
             placeholder="Zip Code"
           />
@@ -242,6 +287,7 @@ export const EnrollStep1 = () => {
           <Form.Label>Recruitment</Form.Label>
           <Form.Control
             type="text"
+            value={data?.recruitment || ""}
             onChange={onHandleInput}
             placeholder="Recruitment"
           />

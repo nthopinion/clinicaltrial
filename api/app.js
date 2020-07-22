@@ -8,6 +8,10 @@ app.use(express.json());
 
 enrollmentDAO.init(); // initialize cosmosdb database/containers
 
+app.get("/api/enrollmentId", (req, res, next) => {
+  enrollmentDAO.getEnrollmentId(req, res).catch(next);
+});
+
 app.post("/api/saveEnrollment", (req, res, next) => {
   enrollmentDAO.saveEnrollment(req, res).catch(next);
 });

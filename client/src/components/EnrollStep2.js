@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { EnrollContext } from "./../providers/enrollProvider";
 
 export const EnrollStep2 = () => {
-  const { onHandleInput } = useContext(EnrollContext);
+  const { onHandleInput, onPrevClick, data } = useContext(EnrollContext);
 
   return (
     <>
@@ -14,6 +14,7 @@ export const EnrollStep2 = () => {
           <Form.Label></Form.Label>
           <Form.Check
             type="checkbox"
+            checked={data?.fitnessOptIn === true}
             onChange={(e) => onHandleInput(e, "check")}
             label="Fitness Tracker Opt-In?"
           />
@@ -49,6 +50,7 @@ export const EnrollStep2 = () => {
           <Form.Label>Rate</Form.Label>
           <Form.Control
             type="number"
+            value={data.fitnessRate}
             onChange={onHandleInput}
             placeholder="Rate"
           />
@@ -57,6 +59,7 @@ export const EnrollStep2 = () => {
           <Form.Label>Depth</Form.Label>
           <Form.Control
             type="number"
+            value={data.fitnessDepth}
             onChange={onHandleInput}
             placeholder="Depth"
           />
@@ -113,7 +116,10 @@ export const EnrollStep2 = () => {
         </Form.Group>
       </Form.Row>
 
-      <button type="submit" className="mr-auto btn btn-info">
+      <button className="ml-auto btn btn-info" onClick={onPrevClick}>
+        Previous
+      </button>
+      <button type="submit" className="ml-2 btn btn-info">
         Submit
       </button>
     </>

@@ -1,37 +1,17 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "https://clinicaltrial.nthopinion.com/enrolment/schema.json",
-    "title": "Enrolment",
-    "titlePlural": "Enrolments",
-    "description": "An enrolment into the clinical trial",
-    "database": {
-      "name": "health_clinical_trial_enrolment"
-    },
-    "allOf": [
-        {"$ref": "https://schemas.verida.io/base/schema.json"},
-        {
-            "properties": {
-                "dateEnrolment": {
-                    "title": "Date of enrolment",
-                    "description": "Date the patient was enrolled into the clinical trial",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "dateConsent": {
-                    "title": "Date of consent",
-                    "description": "Date the patient consented to participate in the clinical trial",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "age": {
-                    "title": "Age",
-                    "description": "Age of the patient",
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "dateEnrolment", "dateConsent", "age"
-            ]
-        }
-    ]
-  }
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://clinicaltrial.nthopinion.com/enrolment/schema.json",
+  "title": "Enrolment",
+  "titlePlural": "Enrolments",
+  "description": "An enrolment into the clinical trial",
+  "database": {
+    "name": "health_clinical_trial_enrolment"
+  },
+  "allOf": [
+    { "$ref": "https://schemas.verida.io/base/schema.json" },
+    {
+      "properties": {},
+      "required": ["enrollmentDate"]
+    }
+  ]
+}
