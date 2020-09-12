@@ -1,7 +1,7 @@
 /*eslint no-undef: "off"*/
 /*eslint no-unused-vars: "off"*/
 import store from "store";
-import VeridaApp from "@verida/datastore";
+import VeridaApp from "../verida-datastore";
 const _ = require("lodash");
 
 /**
